@@ -198,7 +198,7 @@ getArgs <- function() {
     optionList[grep(paste(v_options, collapse="|"), names(optionList), ignore.case=T)] <- T
   }
   
-  checks_KT(s_KTf)
+  checks_KT(s_KT)
   checks_Ys(s_Ys)
   l_V0 <- checkV0s(v_s_V, l_V0)
 
