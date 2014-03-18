@@ -8,7 +8,6 @@ tryCatch({
   ## PARAMETERS
   APIversion <- "1.0.2";
   
-  
   ## source needed files
   source('/media/FD/BIOSCREEN/R/BIOPROD/PE_getConnection.R')
   source('/media/FD/BIOSCREEN/R/BIOPROD/PE_Subpop_functions.R')

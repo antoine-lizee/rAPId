@@ -63,7 +63,6 @@ createOPTIONSJson <- function() {
 }
 
 createGETJson <- function() {
-#   return(throwErrorWithJson(e = "This service seems to be not yet implemented."))
   list[argList, APIWARNINGS, optionList] <- getArgs()
 #   return(test(expression({
 #     print(argList)
