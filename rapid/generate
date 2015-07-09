@@ -1,4 +1,29 @@
+## generate
+# This is a script that installs and avtvate the apache configuration for the rAPId aPI.
+# Tested on Debian, use at you own risk.
+#
+#Copyright Antoine Lizee 07/2015
+
 echo "Generating configuration file..."
-Rscript --vanilla rapid/generate.R && \
-echo -e "\nRestarting Server..." && \
+Rscript --vanilla rapid/Generate.R
+
+CONFIG_FILE="rapid.conf"
+CONFIG_FILE_PATH="`pwd`/$CONFIG_FILE_PATH"
+CONFIG_DIR="/etc/apache2/sites-available/"
+ENABLED_DIR="/etc/apache2/sites-enabled/"
+
+if [ ! -e ${CONFIG_DIR}${CONFIG_FILE} ]; then
+  if [ -h ${CONFIG_DIR}${CONFIG_FILE} ]; then
+    rm ${CONFIG_DIR}${CONFIG_FILE}
+  fi
+  echo -e  "\nLinking config file..."
+  sudo ln -s $CONFIG_FILE_PATH $CONFIG_DIR
+fi
+
+if [ ! -e ENABLED_DIR ]; then
+  echo -e "\nAdding config file to Apache config..."
+  sudo a2ensite rapid
+fi
+
+echo -e "\nRestarting Server..."
 sudo service apache2 restart

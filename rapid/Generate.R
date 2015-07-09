@@ -3,12 +3,16 @@
 # file for Apache.
 # This must be run from the project root directory.
 
+
+# Initialization ----------------------------------------------------------
+
 library(whisker)
 
 rm(list = ls())
 source("rapid/Globals.R")
 sourceConfig()
 
+quiet.b <- "--quiet" %in% commandArgs(trailingOnly = TRUE)
 
 # Prepare -----------------------------------------------------------------
 
@@ -32,12 +36,14 @@ writeLines(whisker.render(template, data), file.path("rapid.conf"))
 
 # Talk --------------------------------------------------------------------
 
-cat("
+if (!quiet.b) {
+  cat("
 The config file has been succesfully generated.
   -> [If not already done] Create a link from the Apache site configuration directory to the generated file. The command would be something like:
-  sudo ln -s `pwd`/rapid/rapid.conf /etc/apache2/sites-available/ 
+  sudo ln -s `pwd`/rapid.conf /etc/apache2/sites-available/ 
   -> [If not already done] Enable the configuration file. The command should be something like:
   sudo a2ensite rapid
   -> Restart apache, with the command:
   sudo service apache2 restart
 ")
+}
