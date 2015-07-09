@@ -1,0 +1,1 @@
+Rscript --vanilla rapid/generate.R && sudo service apache2 restart
