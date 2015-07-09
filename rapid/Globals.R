@@ -32,5 +32,5 @@ getStartupFile <- function() {
 }
 
 getActions <- function() {
-  dir(checkRootDir(), RAPID_APP_DIR)
+  dir(file.path(checkRootDir(), RAPID_APP_DIR))
 }

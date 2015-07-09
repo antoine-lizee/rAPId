@@ -4,26 +4,27 @@
 #
 #Copyright Antoine Lizee 07/2015
 
-echo "Generating configuration file..."
-Rscript --vanilla rapid/Generate.R
+echo "-> Generating configuration file..."
+Rscript --vanilla rapid/Generate.R --quiet
 
 CONFIG_FILE="rapid.conf"
-CONFIG_FILE_PATH="`pwd`/$CONFIG_FILE_PATH"
+CONFIG_FILE_PATH="`pwd`/$CONFIG_FILE"
 CONFIG_DIR="/etc/apache2/sites-available/"
 ENABLED_DIR="/etc/apache2/sites-enabled/"
 
 if [ ! -e ${CONFIG_DIR}${CONFIG_FILE} ]; then
+  echo -e  "-> Linking config file..."
   if [ -h ${CONFIG_DIR}${CONFIG_FILE} ]; then
-    rm ${CONFIG_DIR}${CONFIG_FILE}
+    echo -e  "-- Removing old file first..."
+    sudo rm ${CONFIG_DIR}${CONFIG_FILE}
   fi
-  echo -e  "\nLinking config file..."
   sudo ln -s $CONFIG_FILE_PATH $CONFIG_DIR
 fi
 
-if [ ! -e ENABLED_DIR ]; then
-  echo -e "\nAdding config file to Apache config..."
+if [ ! -e ${ENABLED_DIR}${CONFIG_FILE} ]; then
+  echo -e "-> Adding config file to Apache config..."
   sudo a2ensite rapid
 fi
 
-echo -e "\nRestarting Server..."
+echo -e "-> Restarting Server..."
 sudo service apache2 restart

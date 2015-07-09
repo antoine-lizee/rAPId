@@ -47,3 +47,5 @@ The config file has been succesfully generated.
   sudo service apache2 restart
 ")
 }
+
+cat("API Accessible from: ", paste0(c(SERVER_NAME, ADDITIONAL_SERVER_NAMES), ":", PORT, ROOT_URL, collapse = ", "), "\n")
