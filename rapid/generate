@@ -1,1 +1,4 @@
-Rscript --vanilla rapid/generate.R && sudo service apache2 restart
+echo "Generating configuration file..."
+Rscript --vanilla rapid/generate.R && \
+echo -e "\nRestarting Server..." && \
+sudo service apache2 restart

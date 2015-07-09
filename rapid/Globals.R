@@ -14,11 +14,12 @@ RAPID_CONFIG_FILE = "Config.R"
 
 # Helpers -----------------------------------------------------------------
 
-checkRootDir <- function() {
-  if (all(c(RAPID_DIR, RAPID_APP_DIR, RAPID_SRC_DIR) %in% dir())) {
-    getwd()
+checkRootDir <- function(directory = "./", 
+                         errorMsg = "Script has to be run from the project root directory.") {
+  if (all(c(RAPID_DIR, RAPID_APP_DIR, RAPID_SRC_DIR) %in% dir(directory))) {
+    normalizePath(directory)
   } else {
-    stop("Script has not be run from the project root directory.")
+    stop(errorMsg)
   }
 }
 

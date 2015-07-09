@@ -1,6 +1,7 @@
-## generate.R
+## Generate.R
 # This file is supposed to be sourced in order to create the configuration
 # file for Apache.
+# This must be run from the project root directory.
 
 library(whisker)
 
@@ -11,7 +12,7 @@ sourceConfig()
 
 # Prepare -----------------------------------------------------------------
 
-template <- readLines("rapid/rapid.conf.mustache")
+template <- readLines(file.path(RAPID_DIR, "rapid.conf.mustache"))
 data <- list(
   date = Sys.time(),
   R_MOD_PATH = R_MOD_PATH,
@@ -26,7 +27,7 @@ data <- list(
 
 # Generate ----------------------------------------------------------------
 
-writeLines(whisker.render(template, data), "rapid/rapid.conf")
+writeLines(whisker.render(template, data), file.path("rapid.conf"))
 
 
 # Talk --------------------------------------------------------------------
