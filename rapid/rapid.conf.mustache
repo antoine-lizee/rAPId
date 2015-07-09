@@ -1,0 +1,43 @@
+## This file as been generated dynamically with mustache templating 
+# on the {{{date}}}. It should be linked to from the config file 
+# folder of the system (something like /etc/apache2/sites-available/)
+# and activated with `sudo a2enmod rapid`.
+
+LoadModule R_module           {{{R_MOD_PATH}}}
+Listen {{{PORT}}}
+
+<VirtualHost *:{{{PORT}}}>
+
+  ## Server names
+  ServerName {{{SERVER_NAME}}}
+  {{#ADDITIONAL_SERVER_NAMES}}
+	ServerAlias {{{.}}}
+  {{/ADDITIONAL_SERVER_NAMES}}
+
+
+  ## Startup script
+  RSourceOnStartup {{{startup_script_path}}}
+
+  ## API Home
+  <Location {{{ROOT_URL}}}>
+          SetHandler r-handler
+          RHandler rapid.home
+  </Location>
+  
+  {{#actions}}
+  ## API Actions
+  <Location {{{ROOT_URL}}}{{{.}}}>
+          SetHandler r-handler
+          RHandler rapid.{{{.}}}
+  </Location>
+  {{/actions}}
+  
+  {{#INFO_ACTION}}
+  ## API Information
+  <Location {{{ROOT_URL}}}{{{.}}}>
+          SetHandler r-info
+  </Location>
+  {{/INFO_ACTION}}
+
+
+</VirtualHost>
